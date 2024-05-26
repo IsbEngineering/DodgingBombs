@@ -3,6 +3,9 @@
 """
 
 import pygame
+import os
+
+os.chdir(os.path.split(__file__)[0])  # 작업 경로를 해당 파일의 상위 경로로 설정합니다.
 
 pygame.init()
 
@@ -16,11 +19,11 @@ clock = pygame.time.Clock()
 def runGame():
     global done
 
-    bg = pygame.image.load("examples/Background.jpg")
+    bg = pygame.image.load("Background.jpg")
     bg = pygame.transform.scale(bg, (600, 800))
 
     sysfont = pygame.font.SysFont("AppleSDGothicNeoSB00", 36)
-    text = sysfont.render("고양이 귀엽다", True, (0, 0, 0))
+    text = sysfont.render("고양이 귀엽다", True, (0, 0, 0))  # 고양이는 귀엽습니다.
 
     while not done:
         clock.tick(1000)
