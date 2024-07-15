@@ -1,27 +1,23 @@
-from sprites import *
+from sprites import Data
 from abc import ABC, abstractmethod
 
 
-class Scene(ABC):
-    def __init__(self):
-        self.isOnScreen = True
-
+class Scene(ABC):;
     @abstractmethod
-    def view(self, screen: pygame.Surface, clock: pygame.time.Clock): ...
+    def view(self, screen: pygame.Surface, clock: pygame.time.Clock, data: Data) -> Scene: ...
 
 
 class GameScene(Scene):
     def __init__(self):
-        super().__init__()
         self.player = Player()
         self.bombs = [Bomb()]
 
-    def view(self, screen: pygame.Surface, clock: pygame.time.Clock) -> None:
+    def view(self, screen: pygame.Surface, clock: pygame.time.Clock, data: Data) -> Scene:
         screen.fill(BLACK)  # 배경
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
-                self.isOnScreen = False
+                data.scene = TitleScene()
 
         self.player.update()
         self.player.draw(screen)
@@ -29,24 +25,19 @@ class GameScene(Scene):
             bomb.fall()
             bomb.draw(screen)
             if bomb.rect.colliderect(self.player.rect):
-                self.isOnScreen = False
+                data.scene = TitleScene()
 
         pygame.display.update()
         clock.tick(60)
 
 
 class TitleScene(Scene):
-    def __init__(self):
-        super().__init__()
-
-    def view(self, screen: pygame.Surface, clock: pygame.time.Clock) -> None: ...
+    def view(self, screen: pygame.Surface, clock: pygame.time.Clock, data: Data) -> Scene:
+        data.scene = GameScene()
 
 class TutorialScene(Scene):
-    def __init__(self):
-        super().__init__()
-    
-    def view(self, screen: pygame.Surface, clock: pygame.time.Clock) -> None: ...
-
+    def view(self, screen: pygame.Surface, clock: pygame.time.Clock, data: Data) -> Scene:
+        data.scene = TitleScene()
 
 if __name__ == "__main__":  # 디버그 코드
     ts = TitleScene()

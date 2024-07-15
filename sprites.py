@@ -1,6 +1,6 @@
 import pygame
 from pygame.locals import *
-from preset import *
+from preset import Data
 from pathlib import Path
 import random
 

@@ -1,24 +1,18 @@
 import pygame
-from preset import *
+from preset import Data
 from scenes import *
 
 pygame.init()
 
-screen = pygame.display.set_mode(windowSize)
+data = Data()
+data.scene = TitleScene()
+screen = pygame.display.set_mode(data.windowSize)
 
 clock = pygame.time.Clock()
 
-gameScene = GameScene()
-titleScene = TitleScene()
-tutorialScene = TutorialScene()
-
 def runGame():
-    running = True
-    while running:
-        while gameScene.isOnScreen:
-            gameScene.view(screen, clock)
-        running = False
-
+    while data.running:
+        data.scene.view(screen, clock, data)
 
 runGame()
 pygame.quit()
