@@ -7,7 +7,7 @@ class Scene(ABC):
         self.isOnScreen = True
 
     @abstractmethod
-    def view(self): ...
+    def view(self, screen: pygame.Surface, clock: pygame.time.Clock): ...
 
 
 class GameScene(Scene):
@@ -39,7 +39,13 @@ class TitleScene(Scene):
     def __init__(self):
         super().__init__()
 
-    def view(self): ...
+    def view(self, screen: pygame.Surface, clock: pygame.time.Clock) -> None: ...
+
+class TutorialScene(Scene):
+    def __init__(self):
+        super().__init__()
+    
+    def view(self, screen: pygame.Surface, clock: pygame.time.Clock) -> None: ...
 
 
 if __name__ == "__main__":  # 디버그 코드

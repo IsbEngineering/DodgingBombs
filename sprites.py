@@ -1,3 +1,5 @@
+import pygame
+from pygame.locals import *
 from preset import *
 from pathlib import Path
 import random
