@@ -6,7 +6,6 @@ class Scene(ABC):;
     @abstractmethod
     def view(self, screen: pygame.Surface, clock: pygame.time.Clock, data: Data) -> Scene: ...
 
-
 class GameScene(Scene):
     def __init__(self):
         self.player = Player()
@@ -17,7 +16,7 @@ class GameScene(Scene):
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
-                data.scene = TitleScene()
+                data.running = False
 
         self.player.update()
         self.player.draw(screen)
