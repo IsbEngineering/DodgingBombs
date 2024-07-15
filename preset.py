@@ -24,3 +24,5 @@ class Font:
 class Game:
     scene = None
     running = True
+
+    # bestscore? or something etc
