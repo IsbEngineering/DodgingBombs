@@ -20,12 +20,16 @@ class GameScene(Scene):
 
         self.round = 1
         self.lastBombTime = time.time()
+        self.health = 3
+        self.hearts = [Health((100,100))]
 
     def view(
         self, screen: pygame.Surface, clock: pygame.time.Clock, game: Game
     ) -> Scene:
         screen.fill(BLACK)
         screen.blit(self.roundText, self.roundtextRect)
+        for heart in self.hearts:
+            screen.blit(heart.image, heart.rect)
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:

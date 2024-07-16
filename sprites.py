@@ -11,6 +11,7 @@ characterImage = pygame.transform.scale(
 bombImage = pygame.transform.scale(
     pygame.image.load(Path(__file__).parent / Path("images/bomb.png")), (50, 50)
 )
+healthimage = pygame.transform.scale(pygame.image.load(Path(__file__).parent / Path("images/heart.png")),(60, 60))
 
 
 class Bomb(pygame.sprite.Sprite):
@@ -50,3 +51,9 @@ class Player(pygame.sprite.Sprite):
 
     def draw(self, surface: pygame.Surface) -> None:
         surface.blit(self.image, self.rect)
+
+class Health(pygame.sprite.Sprite):
+    def __init__(self,coord):
+        self.image = healthimage
+        self.rect = self.image.get_rect()
+        self.rect.center = coord
