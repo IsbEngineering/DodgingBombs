@@ -6,7 +6,7 @@ import random
 
 
 characterImage = pygame.transform.scale(
-    pygame.image.load(Path(__file__).parent / Path("images/character.png")), (100, 158)
+    pygame.image.load(Path(__file__).parent / Path("images/character.png")), (60, 95)
 )
 bombImage = pygame.transform.scale(
     pygame.image.load(Path(__file__).parent / Path("images/bomb.png")), (50, 50)
