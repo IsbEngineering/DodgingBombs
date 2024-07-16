@@ -16,7 +16,7 @@ class GameScene(Scene):
         self.player = Player()
         self.bombs = [Bomb(), Bomb()]
         self.roundText = Font.neodgm36.render("Round1", False, (255, 255, 255))
-        self.roundtextRect = self.roundText.get_rect(center=(300,100))
+        self.roundtextRect = self.roundText.get_rect(center=(300, 100))
 
         self.round = 1
         self.lastBombTime = time.time()
@@ -40,8 +40,9 @@ class GameScene(Scene):
             self.lastBombTime = time.time()
             self.round += 1
 
-            self.roundText = Font.neodgm36.render(f"Round{self.round}", False, (255, 255, 255))
-
+            self.roundText = Font.neodgm36.render(
+                f"Round{self.round}", False, (255, 255, 255)
+            )
 
         for bomb in self.bombs:
             bomb.fall()
@@ -123,7 +124,3 @@ def isMouseInRect(rect: pygame.Rect):
         and (mousePos[1] <= rect.bottom)
     ):
         return True
-
-class GameOverScene(Scene):
-    def view() -> Scene:
-        ...
