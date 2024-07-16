@@ -18,13 +18,13 @@ class Bomb(pygame.sprite.Sprite):
         super().__init__()
         self.image = bombImage
         self.rect = self.image.get_rect()
-        self.rect.center = (random.randint(40, 600 - 40), 0)
+        self.rect.center = (random.randint(40, 600 - 40), 0 - random.randint(0, 400))
 
     def fall(self) -> None:
         self.rect.move_ip(0, 10)
         if self.rect.bottom > 800:
             self.rect.top = 0
-            self.rect.center = (random.randint(30, 600 - 30), 0)
+            self.rect.center = (random.randint(40, 600 - 40), 0 - random.randint(0, 600))
 
     def draw(self, surface: pygame.Surface) -> None:
         surface.blit(self.image, self.rect)
@@ -41,9 +41,9 @@ class Player(pygame.sprite.Sprite):
         isPressed = pygame.key.get_pressed()
 
         if self.rect.left > 0 and isPressed[K_LEFT]:
-            self.rect.move_ip(-5, 0)
+            self.rect.move_ip(-10, 0)
         if self.rect.right < windowSize[0] and isPressed[K_RIGHT]:
-            self.rect.move_ip(5, 0)
+            self.rect.move_ip(10, 0)
 
     def draw(self, surface: pygame.Surface) -> None:
         surface.blit(self.image, self.rect)

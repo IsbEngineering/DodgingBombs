@@ -3,6 +3,7 @@ from pygame.locals import *
 from sprites import *
 from abc import ABC, abstractmethod
 from pathlib import Path
+import time
 
 
 class Scene(ABC):
@@ -13,12 +14,18 @@ class Scene(ABC):
 class GameScene(Scene):
     def __init__(self):
         self.player = Player()
-        self.bombs = [Bomb()]
+        self.bombs = [Bomb(), Bomb()]
+        self.roundText = Font.neodgm36.render("Round1", False, (255, 255, 255))
+        self.roundtextRect = self.roundText.get_rect(center=(300,100))
+
+        self.round = 1
+        self.lastBombTime = time.time()
 
     def view(
         self, screen: pygame.Surface, clock: pygame.time.Clock, game: Game
     ) -> Scene:
         screen.fill(BLACK)
+        screen.blit(self.roundText, self.roundtextRect)
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -26,6 +33,16 @@ class GameScene(Scene):
 
         self.player.update()
         self.player.draw(screen)
+
+        if time.time() - self.lastBombTime >= 10:
+            self.bombs.append(Bomb())
+            self.bombs.append(Bomb())
+            self.lastBombTime = time.time()
+            self.round += 1
+
+            self.roundText = Font.neodgm36.render(f"Round{self.round}", False, (255, 255, 255))
+
+
         for bomb in self.bombs:
             bomb.fall()
             bomb.draw(screen)
@@ -106,3 +123,7 @@ def isMouseInRect(rect: pygame.Rect):
         and (mousePos[1] <= rect.bottom)
     ):
         return True
+
+class GameOverScene(Scene):
+    def view() -> Scene:
+        ...
