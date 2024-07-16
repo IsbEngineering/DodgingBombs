@@ -6,7 +6,7 @@ import random
 
 
 characterImage = pygame.transform.scale(
-    pygame.image.load(Path(__file__).parent / Path("images/character.png")), (100, 100)
+    pygame.image.load(Path(__file__).parent / Path("images/character.png")), (100, 158)
 )
 bombImage = pygame.transform.scale(
     pygame.image.load(Path(__file__).parent / Path("images/bomb.png")), (50, 50)
@@ -24,7 +24,10 @@ class Bomb(pygame.sprite.Sprite):
         self.rect.move_ip(0, 10)
         if self.rect.bottom > 800:
             self.rect.top = 0
-            self.rect.center = (random.randint(40, 600 - 40), 0 - random.randint(0, 600))
+            self.rect.center = (
+                random.randint(40, 600 - 40),
+                0 - random.randint(0, 600),
+            )
 
     def draw(self, surface: pygame.Surface) -> None:
         surface.blit(self.image, self.rect)
