@@ -1,21 +1,19 @@
-from preset import *
-from scenes import GameScene
+import pygame
+from preset import Game
+from scenes import *
 
 pygame.init()
 
+game = Game()
+game.scene = TitleScene()
 screen = pygame.display.set_mode(windowSize)
 
 clock = pygame.time.Clock()
 
-gameScene = GameScene()
-
 
 def runGame():
-    running = True
-    while running:
-        while gameScene.isOnScreen:
-            gameScene.view(screen, clock)
-        running = False
+    while game.running:
+        game.scene.view(screen, clock, game)
 
 
 runGame()

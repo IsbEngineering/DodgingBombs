@@ -1,14 +1,17 @@
+import pygame
+from pygame.locals import *
 from preset import *
 from pathlib import Path
 import random
 
 
 characterImage = pygame.transform.scale(
-    pygame.image.load(Path(__file__).parent / Path("images/character.png")), (100, 100)
+    pygame.image.load(Path(__file__).parent / Path("images/character.png")), (60, 95)
 )
 bombImage = pygame.transform.scale(
     pygame.image.load(Path(__file__).parent / Path("images/bomb.png")), (50, 50)
 )
+healthimage = pygame.transform.scale(pygame.image.load(Path(__file__).parent / Path("images/heart.png")),(60, 60))
 
 
 class Bomb(pygame.sprite.Sprite):
@@ -16,13 +19,16 @@ class Bomb(pygame.sprite.Sprite):
         super().__init__()
         self.image = bombImage
         self.rect = self.image.get_rect()
-        self.rect.center = (random.randint(40, 600 - 40), 0)
+        self.rect.center = (random.randint(40, 600 - 40), 0 - random.randint(0, 400))
 
     def fall(self) -> None:
         self.rect.move_ip(0, 10)
         if self.rect.bottom > 800:
             self.rect.top = 0
-            self.rect.center = (random.randint(30, 600 - 30), 0)
+            self.rect.center = (
+                random.randint(40, 600 - 40),
+                0 - random.randint(0, 600),
+            )
 
     def draw(self, surface: pygame.Surface) -> None:
         surface.blit(self.image, self.rect)
@@ -39,9 +45,15 @@ class Player(pygame.sprite.Sprite):
         isPressed = pygame.key.get_pressed()
 
         if self.rect.left > 0 and isPressed[K_LEFT]:
-            self.rect.move_ip(-5, 0)
+            self.rect.move_ip(-10, 0)
         if self.rect.right < windowSize[0] and isPressed[K_RIGHT]:
-            self.rect.move_ip(5, 0)
+            self.rect.move_ip(10, 0)
 
     def draw(self, surface: pygame.Surface) -> None:
         surface.blit(self.image, self.rect)
+
+class Health(pygame.sprite.Sprite):
+    def __init__(self,coord):
+        self.image = healthimage
+        self.rect = self.image.get_rect()
+        self.rect.center = coord
